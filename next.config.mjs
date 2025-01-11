@@ -10,18 +10,24 @@ const nextConfig = {
           },
         ],
       },
-     async headers() {
+      async headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/:path*',
         headers: [
-          { key: 'X-Frame-Options', value: 'ALLOWALL' },
-          { key: 'Content-Security-Policy', value: 'frame-ancestors *' },
-          { key: 'Access-Control-Allow-Origin', value: '*' }
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://*.vercel.app https://*.spaceuis.com",
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOW-FROM https://*.vercel.app https://*.spaceuis.com',
+          },
         ],
       },
-    ]
+    ];
   },
+
 };
 
 export default nextConfig;
